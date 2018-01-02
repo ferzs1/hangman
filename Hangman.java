@@ -1,5 +1,5 @@
 import java.lang.reflect.Array;
-import java.util.ArrayList;
+import java.util.*;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -24,7 +24,18 @@ public class Hangman {
 //      System.out.println("\n" + words.get(wordNo));
         String wordToGuess = words.get(wordNo);
         boolean win = false;
-        int toBeGuessed = wordToGuess.length();
+
+//        int toBeGuessed = wordToGuess.length();
+        List<Character> list = new ArrayList<Character>();
+        Set<Character> unique = new HashSet<Character>();
+        for(char c : wordToGuess.toCharArray()) {
+                list.add(c);
+                unique.add(c);
+        }
+        int toBeGuessed = unique.size();
+        System.out.println(toBeGuessed);
+
+
         while (!win && elet > 0) {
             System.out.println("");
             for (int i = 0; i < wordToGuess.length(); i++) {
@@ -33,9 +44,6 @@ public class Hangman {
                 } else {
                     System.out.print("_ ");
                 }
-            }
-            if (toBeGuessed == 0) {
-                win = true;
             }
 
             System.out.println("\n");
@@ -55,9 +63,12 @@ public class Hangman {
                 char G = Guess.charAt(0);
                 badGuess.add(G);
             }
+            if (toBeGuessed == 0) {
+                win = true;
+            }
         }
         if (win) {    
-            System.out.println("\nNyert.");
+            System.out.println("\nNyert. A szó: " + wordToGuess);
         } else {
             System.out.println("\nNem nyert.");
         }
