@@ -1,7 +1,5 @@
 import java.lang.reflect.Array;
 import java.util.*;
-import java.util.Random;
-import java.util.Scanner;
 
 public class Hangman {
 
@@ -51,16 +49,29 @@ public class Hangman {
             Scanner scan = new Scanner(System.in);
             System.out.println("Tippelj!");
             String Guess = scan.next();
+            char G = Guess.charAt(0);
 
             //lekezelni, hogy csak 1 karaktert lehessen megadni!
+            while (true){
+                if (Guess.length() > 1){ 
+                    System.out.println("Legyszi egy betut adj csak meg.");
+                    Guess = scan.next();
+                    G = Guess.charAt(0);
+                }
+                else if (goodGuess.contains(G) || badGuess.contains(G)){
+                    System.out.println("Mar volt ez a betu! Irj be egy ujat!");
+                    Guess = scan.next();
+                    G = Guess.charAt(0);
+                } else {
+                    break;
+                }
+            }
             if (wordToGuess.contains(Guess)) {
-                char G = Guess.charAt(0);
                 goodGuess.add(G);
                 toBeGuessed--;
             } else {
                 elet--;
                 System.out.printf("%d életed maradt.", elet);
-                char G = Guess.charAt(0);
                 badGuess.add(G);
             }
             if (toBeGuessed == 0) {
